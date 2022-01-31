@@ -1,0 +1,25 @@
+{
+  "name": "application_meteo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/Tony_M/application_meteo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/Tony_M/application_meteo/issues"
+  },
+  "homepage": "https://gitlab.com/Tony_M/application_meteo#readme",
+  "dependencies": {
+    "autoprefixer": "^10.4.2",
+    "bootstrap": "^5.1.3",
+    "bootstrap-autocomplete": "^2.3.7"
+  }
+}
