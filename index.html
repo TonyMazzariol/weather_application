@@ -8,6 +8,32 @@
     <title>Document</title>
 </head>
 <body>
-    <p class="text-primary">HELLO WORLD</p>
+    <div class="nav">
+        <input type="text" id="city">
+        <button type="submit" id="submit">rechercher</button>
+    </div>
+    
+    <div id="loader" class="spinner-border" role="status"></div>
+    
+    <div class="container">
+        <div>
+            <div id="name"></div>
+            <img src="/amcharts_weather_icons_1.0.0/animated/day.svg" id="icon_weather" alt="">            
+        </div>
+        <div>
+            <div id="temp_average"></div>
+            <div id="temp_min"></div>
+            <div id="temp_max"></div>
+            <div id="temp_feel"></div>
+        </div>
+        <div>
+            <div id="wind_speed"></div>
+            <div id="wind_deg"></div>
+
+            <div id="humidity"></div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
 </body>
 </html>
