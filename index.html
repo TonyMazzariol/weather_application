@@ -8,8 +8,8 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="container w-50 text-center ">
-        <div class="input-group">
+    <div class="container w-50 text-center p-5">
+        <div class="input-group shadow-lg">
             <input list="auto_list"  class="form-control rounded" id="city_name"/>
             <datalist id="auto_list">
                 
@@ -19,19 +19,19 @@
         
         <button type="submit" class="btn btn-outline-primary m-md-4" id="my_position">Votre Position</button>
         
-        <div class="card-body">
+        <div class="card-body shadow-lg" id="weather_card">
             <div>
-                <div id="loader" class="spinner-border" role="status"></div>
-                <div id="name"></div>
-                <img class="m-auto" src="" id="icon_weather" alt="">            
+                <div hidden id="loader" class="spinner-border" role="status"></div>
+                <h3 id="name"></h3>
+                <img class="m-auto d-block w-25" src="" id="icon_weather" alt="">            
             </div>
-            <div>
+            <div class="d-flex m-3">
                 <div id="temp_average"></div>
                 <div id="temp_min"></div>
                 <div id="temp_max"></div>
                 <div id="temp_feel"></div>
             </div>
-            <div>
+            <div class="d-flex m-3 justify-content-md-between">
                 <div id="wind_speed"></div>
                 <div id="wind_deg"></div>
     

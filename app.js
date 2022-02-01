@@ -3,38 +3,72 @@ let auto_list = document.getElementById('auto_list');
 let city_name = document.getElementById('city_name');
 let my_position = document.getElementById('my_position');
 
+// GET WEATHER FUNCTION
 
-// SET LOADER
-document.getElementById('loader').hidden = true;
+submit.addEventListener("click", function search() {
+    
+    set_loader()
+
+    let weather_card = document.getElementById('weather_card')
+    weather_card.classList.add('shadow-lg')
 
 
-// GEOLOCALISATION
+    fetch('http://api.openweathermap.org/data/2.5/weather?q='+city_name.value+'&appid=6a9d5df73ece48db50d7ce57ea402886&units=metric&lang=fr')
+    .then( function (data) {
+        return data.json(); 
+    })
+    .then( function (Data) {
+    
+    unset_loader() 
+
+    fill_up(Data)
+    
+    })        
+})
+
+// GEOLOCALISATION FUNCTION
 
 my_position.addEventListener('click', function search() {
+    get_geolocalisation()
+});
 
-    navigator.geolocation.getCurrentPosition(function(position) {
+window.addEventListener('load', function search() {
+    get_geolocalisation()
+});
 
+function get_geolocalisation() {
+    set_loader()
+    
+    navigator.geolocation.getCurrentPosition(function(position) {    
+                
         console.log(position.coords.latitude, position.coords.longitude);
-        let lat =position.coords.latitude
-        let long =position.coords.longitude
-
-        // ACTIVE LOADER
-        document.getElementById('loader').hidden = false;
+        let lat = position.coords.latitude
+        let long = position.coords.longitude
         
-        fetch('api.openweathermap.org/data/2.5/weather?lat='+lat.toFixed(4)+'&lon='+long.toFixed(4)+'&appid=3ff862a7e42ee9117fa7f0258d22df70&units=metric&lang=fr') 
+        fetch('http://api.openweathermap.org/geo/1.0/reverse?lat='+lat+'&lon='+long+'&appid=3ff862a7e42ee9117fa7f0258d22df70') 
         
         .then( function (grad) {
             return grad.json()
         })
-        .then( function (Position) {
-            // KILL LOADER
-            document.getElementById('loader').hidden = true;
+        .then( function (Data) {
 
-            console.log(Position);
+            unset_loader()
+
+            fetch('http://api.openweathermap.org/data/2.5/weather?q='+Data[0].name+'&appid=6a9d5df73ece48db50d7ce57ea402886&units=metric&lang=fr')
+            .then( function (data) {
+                return data.json(); 
+            })
+            .then( function (Data) {
+            
+                unset_loader()
+
+                fill_up(Data)
+            
+            })  
+            
         })
     })
-});
-
+}
 
 // AUTOCOMPLETE FUNCTION
 
@@ -46,8 +80,8 @@ city_name.addEventListener("input", function search() {
     })
     .then( function (Name) {
 
-        if (Name.length > 1) {
             auto_list.innerHTML = '';
+
             Name.forEach(row => {
                 let option = document.createElement('option');
                 let new_name = document.createTextNode(row.nom);
@@ -55,33 +89,19 @@ city_name.addEventListener("input", function search() {
                 auto_list.appendChild(option) 
                 
             });
-        } else {
-        }    
+            
     })
 });
 
-
-// GET WEATHER FUNCTION
-
-submit.addEventListener("click", function search() {
-    
-    // ACTIVE LOADER
+function set_loader() {
     document.getElementById('loader').hidden = false;
-    
+}
 
-    fetch('http://api.openweathermap.org/data/2.5/weather?q='+city_name.value+'&appid=6a9d5df73ece48db50d7ce57ea402886&units=metric&lang=fr')
-    .then( function (data) {
-        return data.json(); 
-    })
-    .then( function (Data) {
-    
-    // KILL LOADER
+function unset_loader() {
     document.getElementById('loader').hidden = true;
-    
-    /*  -----------  */    
-    console.log(Data);
-    /*  -----------  */    
+}
 
+function fill_up(Data) {
     let name = document.getElementById('name')
     name.textContent = Data.name
     
@@ -101,24 +121,23 @@ submit.addEventListener("click", function search() {
     wind_speed.textContent = ("vitesse du vent : "+Data.wind.speed+" km/h")
     
     let degrees = Data.wind.deg;
-    let directions = ['nord', 'nord-est', 'est', 'sud-est', 'sud', 'sud-ouest', 'ouest', 'nord-ouest'];
-    degrees = degrees * 8 / 360;
-    degrees = Math.round(degrees, 0);
-    degrees = (degrees + 8) % 8
-    
     let wind_deg = document.getElementById('wind_deg')
-    wind_deg.textContent = ("direction du vent : "+directions[degrees])
+    wind_deg.textContent = ("direction du vent : "+get_direction(degrees))
     
     let humidity = document.getElementById('humidity')
     humidity.textContent = ("humidité : "+Data.main.humidity+"%")
     
     let icon_weather = document.getElementById('icon_weather')
     icon_weather.src = get_icon(Data.weather[0].icon) 
+}
 
-    })        
-})
-
-
+function get_direction(degrees) {
+    let directions = ['nord', 'nord-est', 'est', 'sud-est', 'sud', 'sud-ouest', 'ouest', 'nord-ouest'];
+    degrees = degrees * 8 / 360;
+    degrees = Math.round(degrees, 0);
+    degrees = (degrees + 8) % 8
+    return directions[degrees]
+}
 
 function get_icon(icon) {
     switch (icon) {
