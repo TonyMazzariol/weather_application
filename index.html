@@ -8,32 +8,40 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="nav">
-        <input type="text" id="city">
-        <button type="submit" id="submit">rechercher</button>
-    </div>
+    <div class="container w-50 text-center ">
+        <div class="input-group">
+            <input list="auto_list"  class="form-control rounded" id="city_name"/>
+            <datalist id="auto_list">
+                
+            </datalist>
+            <input type="submit" class="btn btn-outline-primary" id="submit"></input>
+        </div>
+        
+        <button type="submit" class="btn btn-outline-primary m-md-4" id="my_position">Votre Position</button>
+        
+        <div class="card-body">
+            <div>
+                <div id="loader" class="spinner-border" role="status"></div>
+                <div id="name"></div>
+                <img class="m-auto" src="" id="icon_weather" alt="">            
+            </div>
+            <div>
+                <div id="temp_average"></div>
+                <div id="temp_min"></div>
+                <div id="temp_max"></div>
+                <div id="temp_feel"></div>
+            </div>
+            <div>
+                <div id="wind_speed"></div>
+                <div id="wind_deg"></div>
     
-    <div id="loader" class="spinner-border" role="status"></div>
-    
-    <div class="container">
-        <div>
-            <div id="name"></div>
-            <img src="/amcharts_weather_icons_1.0.0/animated/day.svg" id="icon_weather" alt="">            
+                <div id="humidity"></div>
+            </div>
         </div>
-        <div>
-            <div id="temp_average"></div>
-            <div id="temp_min"></div>
-            <div id="temp_max"></div>
-            <div id="temp_feel"></div>
-        </div>
-        <div>
-            <div id="wind_speed"></div>
-            <div id="wind_deg"></div>
-
-            <div id="humidity"></div>
-        </div>
+        
     </div>
     
     <script src="app.js"></script>
+
 </body>
 </html>
