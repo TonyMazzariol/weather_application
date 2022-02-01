@@ -6,7 +6,11 @@ let my_position = document.getElementById('my_position');
 // GET WEATHER FUNCTION
 
 submit.addEventListener("click", function search() {
-    
+    get_weather()
+})
+
+function get_weather() {
+      
     set_loader()
 
     let weather_card = document.getElementById('weather_card')
@@ -24,7 +28,7 @@ submit.addEventListener("click", function search() {
     fill_up(Data)
     
     })        
-})
+}
 
 // GEOLOCALISATION FUNCTION
 
